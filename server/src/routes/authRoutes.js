@@ -43,7 +43,7 @@ router.post('/login',async (req,res) => {
             }
         })
         //If we cant find a customer return
-        if(!user) {return res.status(404).send({message:"User not found"})}
+        if(!customer) {return res.status(404).send({message:"User not found"})}
         const passwordIsValid = bcrypt.compareSync(password, customer.password)
 
         // if the password does not match, return out of the function
