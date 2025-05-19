@@ -71,3 +71,5 @@ router.delete('/delete-product/:id', async (req, res) => {
         res.status(500).json({ error: 'Failed to delete product' });
     }
 });
+
+module.exports = router;
