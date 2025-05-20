@@ -1,17 +1,8 @@
 const express = require('express');
 const prisma = require('../prismaClient');
 const router = express.Router();
-// Validation middleware
-const validateProductData = (req, res, next) => {
-    const { product_name, product_price, product_description, product_quantity } = req.body;
-    
-    if (!product_name || !product_price) {
-        return res.status(400).json({ 
-            error: 'Product name and price are required' 
-        });
-    }
-    next();
-};
+
+
 
 // Create a product
 router.post('/create-product', async (req, res) => {

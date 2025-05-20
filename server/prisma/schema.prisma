@@ -30,6 +30,7 @@ model Product {
   product_name        String?   @db.VarChar(255)
   product_price       Decimal?  @db.Decimal(10, 2)
   product_description String?   @db.Text
+  image_url           String?
   product_quantity    String?   @db.VarChar(255)
   carts              Cart[]
 }
@@ -61,3 +62,4 @@ model Payment {
   payment_status String   @db.VarChar(50)
   order         Order    @relation(fields: [order_id], references: [order_id], onDelete: Cascade, onUpdate: Cascade)
 }
+
