@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use('/auth', authRoutes);
-app.use('/products',adminMiddleware, productRoutes);
+app.use('/products',productRoutes);
 app.use('/cart',authMiddleware, cartRoutes);
 
 const PORT = process.env.PORT || 3000;
