@@ -1,27 +1,31 @@
 const express = require('express');
 const cors = require('cors');
+
 const authRoutes = require('./src/routes/authRoutes');
 const productRoutes = require('./src/routes/productRoutes');
-const { adminMiddleware } = require('./src/middleware/authMiddleware');
-const{authMiddleware} = require('./src/middleware/authMiddleware');
 const cartRoutes = require('./src/routes/cartRoutes');
+
+const { authMiddleware } = require('./src/middleware/authMiddleware');
 
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/auth', authRoutes);
-app.use('/products',productRoutes);
-app.use('/cart',authMiddleware, cartRoutes);
+app.use('/products', productRoutes);
+app.use('/cart', authMiddleware, cartRoutes);
 
+// Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    // Testing the db connection
-    require('./src/config/config.js')
+  console.log(`Server running on port ${PORT}`);
+  // Test DB connection
+  require('./src/config/config.js');
 });
 
 // http://localhost:5004/products/get-products
+// http://localhost:5004/auth/register

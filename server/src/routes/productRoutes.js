@@ -1,28 +1,43 @@
 const express = require('express');
 const prisma = require('../prismaClient');
 const router = express.Router();
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const cloudinary = require('../config/cloudinary');
 
-
+// npx prisma db push
 
 // Create a product
-router.post('/create-product', async (req, res) => {
+router.post('/create-product',upload.single('image'), async (req, res) => {
 
     const {product_name, product_price, product_description, product_quantity} = req.body;
+    console.log("The received body is:", req.body);
+    
     try {
+         if (!req.file) {
+      return res.status(400).json({ error: 'Image file is required.' });
+    }
+
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path)
+    console.log("✅ Image uploaded:", result.secure_url);
+
+    // Save to DB
         const product = await prisma.product.create({
             data: {
                 product_name,
                 product_price,
                 product_description,
-                product_quantity
+                product_quantity,
+                image_url: result.secure_url, // Store the Cloudinary URL
             }
         });
-        res.status(201).json(product);
+        // res.status(201).json(product);
+         res.status(201).json({ message: 'Product created successfully', product });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to create product' });
     }
-
 })
 
 // Get all products
