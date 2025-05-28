@@ -9,6 +9,10 @@ const storage = new CloudinaryStorage({
   params: {
     folder: 'products', // Folder in Cloudinary
     allowed_formats: ['jpg', 'png', 'jpeg'], // Allowed file formats
+     transformation: [
+    { width: 512, height: 651, crop: 'limit' } // Resize with max width and height
+  ]
+  
   }
  
 });
