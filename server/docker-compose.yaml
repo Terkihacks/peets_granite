@@ -1,0 +1,32 @@
+# version: '3.8'
+services:
+  app:
+    build: .
+    container_name: peets_backend
+    environment:
+      - DATABASE_URL=postgresql://postgres:ray2025@db:5432/peets_granite
+      - JWT_SECRET_KEY=secret
+      - NODE_ENV=development
+      - PORT=5004
+    ports:
+      - "5004:5004"   
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:latest
+    container_name: peets_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ray2025
+      POSTGRES_DB: peets_granite
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
