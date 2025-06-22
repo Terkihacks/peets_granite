@@ -5,6 +5,8 @@ const router = express.Router();
 // Create an order
 router.post('/create-order', async (req, res) => {
     const { customer_id,full_name,email,address,city, zip,payment_method } = req.body;
+    console.log('customer_id from body:', customer_id);
+
 
     try {
         const order = await prisma.order.create({
@@ -22,13 +24,13 @@ router.post('/create-order', async (req, res) => {
                 payment_method
             },
             include: {
-                customer: customer_id  // Optional: Include customer details in response
+                customer: true  // Optional: Include customer details in response
             }
         });
         
         res.status(201).json({ 
             message: 'Order created successfully', 
-            // order 
+            order 
         });
     } catch (error) {
         console.error('Order creation error:', error);
