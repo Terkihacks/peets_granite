@@ -4,6 +4,7 @@ const cors = require('cors');
 const authRoutes = require('./src/routes/authRoutes');
 const productRoutes = require('./src/routes/productRoutes');
 const cartRoutes = require('./src/routes/cartRoutes');
+const orderRoutes = require('./src/routes/orderRoutes.js')
 
 const { authMiddleware } = require('./src/middleware/authMiddleware');
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
+app.use('/orders',orderRoutes)
 app.use('/cart', authMiddleware, cartRoutes);
 
 // Server

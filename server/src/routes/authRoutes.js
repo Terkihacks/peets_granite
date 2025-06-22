@@ -50,10 +50,14 @@ router.post('/login',async (req,res) => {
         if (!passwordIsValid) { return res.status(401).send({ message: "Invalid password" }) }
         console.log(customer)
        
-        const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '24h' })
-        res.json({ token })
+        const token = jwt.sign({ id: customer.customer_id }, process.env.JWT_SECRET, { expiresIn: '0.1h' })
+        res.json({ token, customer: { 
+            first_name: customer.first_name, 
+            last_name: customer.last_name, 
+            email: customer.email
+        } })
     } catch (error) {
-         console.log(err.message)
+         console.log(error.message)
          res.sendStatus(503)
     }
 })
