@@ -75,3 +75,18 @@ model Payment {
 
   order Order @relation(fields: [order_id], references: [order_id], onDelete: Cascade)
 }
+
+model Machinery {
+  machine_id    Int            @id @default(autoincrement())
+  category      String       
+  machine_img   String? 
+  brand         String?       
+  model         String?       
+  kva           Float 
+  kw            Float  
+  voltage       String?   //only if available   
+  price         Decimal?      @db.Decimal(10, 2)
+
+
+}
+

@@ -50,10 +50,10 @@ router.post('/login',async (req,res) => {
         if (!passwordIsValid) { return res.status(401).send({ message: "Invalid password" }) }
         console.log(customer)
        
-        const token = jwt.sign({ id: customer.customer_id }, process.env.JWT_SECRET, { expiresIn: '0.1h' })
-        res.json({ token, customer: { 
+        const token = jwt.sign({ id: customer.customer_id }, process.env.JWT_SECRET, { expiresIn: '01h' })
+        res.json({ token, customer: {
+            id: customer.customer_id, 
             first_name: customer.first_name, 
-            last_name: customer.last_name, 
             email: customer.email
         } })
     } catch (error) {
@@ -61,5 +61,12 @@ router.post('/login',async (req,res) => {
          res.sendStatus(503)
     }
 })
+
+// Update a user
+
+// router.update('/update-profile',async(req,res) =>{
+    
+// })
+
 
 module.exports = router
