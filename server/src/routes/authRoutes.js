@@ -2,10 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const prisma = require('../prismaClient');
-
-
-
 const router = express.Router()
+
 // Register a new user endpoint /auth/register
 router.post('/register',async(req,res) => {
     const {first_name,last_name,email,address,password,phone_number} = req.body

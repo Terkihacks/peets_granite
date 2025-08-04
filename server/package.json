@@ -4,6 +4,7 @@
   "description": "A backend server ",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "seed": "node prisma/seed.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
