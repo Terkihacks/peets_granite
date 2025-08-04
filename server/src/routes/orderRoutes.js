@@ -62,7 +62,8 @@ router.delete('/delete-order',async(req,res) =>{
     try {
         
     } catch (error) {
-        
+        console.error('Error deleting order:', error);
+        res.status(500).json({ error: 'Failed to delete order' }); 
     }
 })
 module.exports = router;
