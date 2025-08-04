@@ -87,6 +87,5 @@ model Machinery {
   voltage       String?   //only if available   
   price         Decimal?      @db.Decimal(10, 2)
 
-
 }
 
