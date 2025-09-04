@@ -4,7 +4,8 @@ services:
     build: .
     container_name: peets_backend
     environment:
-      - DATABASE_URL=postgresql://postgres:ray2025@db:5432/peets_granite
+    # postgresql://postgres:ray2025@localhost:5432/peets_granite_replica
+      - DATABASE_URL=postgresql://postgres:ray2025@db:5432/peets_granite_replica
       - JWT_SECRET_KEY=secret
       - NODE_ENV=development
       - PORT=5004
