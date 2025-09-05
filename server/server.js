@@ -15,10 +15,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 // Routes
-app.use('/auth', authRoutes);
-app.use('/products', productRoutes);
-app.use('/orders',orderRoutes)
-app.use('/cart', authMiddleware, cartRoutes);
+app.use('/v1/auth', authRoutes);
+app.use('/v1/products', productRoutes);
+app.use('/v1/orders',orderRoutes)
+app.use('/v1/cart', authMiddleware, cartRoutes);
 
 // Server
 const PORT = process.env.PORT || 8080;
@@ -28,5 +28,6 @@ app.listen(PORT, () => {
   require('./src/config/config.js');
 });
 
-// http://localhost:5004/products/get-products
-// http://localhost:5004/auth/register
+// http://localhost:8000/v1/products/get-products
+// http://localhost:8000/v1/auth/register
+// http://localhost:8000/v1/auth/login

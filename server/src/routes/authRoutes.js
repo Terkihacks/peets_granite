@@ -6,22 +6,31 @@ const router = express.Router()
 
 // Register a new user endpoint /auth/register
 router.post('/register',async(req,res) => {
-    const {first_name,last_name,email,address,password,phone_number} = req.body
+    const {firstName, lastName, email, address, phone, password} = req.body
     const hashedPassword =  bcrypt.hashSync(password,10)
-    
-    //Save the new user
-
+  
     try{
         const customer = await prisma.customer.create({
             data:{
-                first_name,
-                last_name,
-                email,
-                address,
-                phone_number,
-                password:hashedPassword
+
+                first_name: firstName,    
+                last_name: lastName,   
+                email:email,
+                address:address,
+                phone_number: phone,      
+                password: hashedPassword
             }
-        })
+        });
+        res.status(201).json({
+            message: "Registration successful",
+            customer: {
+                id: customer.customer_id,
+                email: customer.email,
+                firstName: customer.first_name,
+                lastName: customer.last_name
+            }
+        });
+
     }
     catch (err) {
     console.log(err.message)
@@ -48,7 +57,8 @@ router.post('/login',async (req,res) => {
         if (!passwordIsValid) { return res.status(401).send({ message: "Invalid password" }) }
         console.log(customer)
        
-        const token = jwt.sign({ id: customer.customer_id }, process.env.JWT_SECRET, { expiresIn: '01h' })
+        const token = jwt.sign({ id: customer.customer_id }, process.env.JWT_SECRET, { expiresIn: '1h' })
+        console.log(token)
         res.json({ token, customer: {
             id: customer.customer_id, 
             first_name: customer.first_name, 
